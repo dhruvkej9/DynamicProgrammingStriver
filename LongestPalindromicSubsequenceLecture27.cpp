@@ -60,7 +60,7 @@ int lcs(string s, string t)
 //     return solve2(s,t);
     return solve3(s,t);
 }
-int palindromicls(string s)
+int longestPalindromeSubsequence(string s)
 {
     string s1 = s;
     reverse(s.begin(),s.end());
