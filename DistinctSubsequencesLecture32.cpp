@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 using namespace std;
+//https://bit.ly/3nZNxy7
 int solve1(int i,int j,string &s,string &t,vector<vector<int>> &dp)
 {
     if(j == 0) return 1;
