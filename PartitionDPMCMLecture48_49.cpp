@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>  
 using namespace std;
+// https://www.codingninjas.com/codestudio/problems/matrix-chain-multiplication_975344?leftPanelTab=1
 int solve1(int i,int j,vector<int> &arr,vector<vector<int>> &dp)
 {
     if(i == j) return 0;
