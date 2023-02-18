@@ -1,4 +1,8 @@
-#include <bits/stdc++.h> 
+#include <vector>
+#include <iostream>  
+#include <algorithm>  
+#include <climits>  
+using namespace std;
 int solve1(int i,int j,vector<int>& a,vector<vector<int>> &dp)
 {
 	if(i > j) return 0;
