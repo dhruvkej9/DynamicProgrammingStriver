@@ -3,7 +3,7 @@
 #include <algorithm>  
 #include <climits>  
 using namespace std;
-// 
+// https://bit.ly/3rWLMnC
 int solve1(int i,int j,vector<int> &cuts,vector<vector<int>> &dp)
 {
     if(i > j) return 0;

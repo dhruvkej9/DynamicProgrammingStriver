@@ -35,7 +35,7 @@ int solve3(string &s, string &t)
     int m = t.size();
 //     vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
     vector<int> prev(m+1,0),cur(m+1,0);
-    for(int j = 0;j <=m;j++) prev[j] = 0;
+    // for(int j = 0;j <=m;j++) prev[j] = 0;
     
     for(int i = 1;i <= n;i++)
     {

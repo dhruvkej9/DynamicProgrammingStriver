@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector> 
 using namespace std;
+//https://bit.ly/346R72e
 int solve1(vector<int>& prices, int n,int k)
 {
     vector<vector<int>> after(2,vector<int>(k + 1,0));

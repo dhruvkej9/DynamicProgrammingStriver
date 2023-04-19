@@ -1,4 +1,6 @@
-#include <bits/stdc++.h> 
+#include "vector"
+#include <iostream>
+#include <climits>
 using namespace std;
 int f(int ind,vector<int> &heights,vector<int> &dp)
 {

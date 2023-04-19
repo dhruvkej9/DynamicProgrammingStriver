@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream> 
 using namespace std;
+//https://bit.ly/3tZsYWA
 int solve1(int ind,int buy,vector<int> &prices)
 {
     if(ind >= prices.size()) return 0;

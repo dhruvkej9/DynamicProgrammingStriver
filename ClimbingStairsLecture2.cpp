@@ -1,4 +1,6 @@
-#include <bits/stdc++.h> 
+#include "vector"
+#include <iostream>
+#include <climits>
 using namespace std;
 long long mod=1000000007;
 int countDistinctWays(int nStairs) 

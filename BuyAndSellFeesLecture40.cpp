@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>  
 using namespace std;
+//https://bit.ly/3nZucNH
 int maximumProfit(int n, int fee, vector<int> &prices)
 {
     long aheadNotBuy,aheadBuy,curNotBuy,curBuy;
