@@ -47,7 +47,7 @@ jobs:
               "build": {
                 "model": "openai/gpt-5.3-codex",
                 "variant": "high",
-                "prompt": "Use ripgrep (rg) instead of grep/glob/find for searching. Commands: rg 'pattern' (search content), rg --files (list all files), rg --files -g '*.ext' (filter by extension), rg --files -g '*.{js,py,md}' (multiple extensions), rg 'pattern' -g '*.ext' (search in specific file types), rg -i 'pattern' (case insensitive), rg -C 3 'pattern' (show 3 lines context). ripgrep is faster and respects .gitignore by default. Use context7 for latest package info.\n\nUse MCP tools intentionally:\n- Use playwright MCP for reproducible end-to-end flows, issue reproduction, UI verification, screenshots, and basic console/network checks.\n- Use chrome-devtools MCP for deeper browser debugging: performance bottlenecks, network waterfall, runtime errors, DOM/CSS inspection, and rendering issues.\n- Prefer playwright for deterministic tests and chrome-devtools for deep diagnostics.\n- After implementing frontend or integration changes, validate with the relevant MCP and report what was verified.\n"
+                "prompt": "Use ripgrep (rg) instead of grep/glob/find for searching. Commands: rg 'pattern' (search content), rg --files (list all files), rg --files -g '*.ext' (filter by extension), rg --files -g '*.{js,py,md}' (multiple extensions), rg 'pattern' -g '*.ext' (search in specific file types), rg -i 'pattern' (case insensitive), rg -C 3 'pattern' (show 3 lines context). ripgrep is faster and respects .gitignore by default. Use context7 for latest package info.\n\nUse websearch when local context is insufficient. At least one websearch is recommended for each task before finalizing.\n\nUse MCP tools intentionally:\n- Use chrome-devtools MCP for browser debugging, performance bottlenecks, network waterfall, runtime errors, DOM/CSS inspection, and rendering issues.\n- For frontend or integration fixes, validate behavior and include what you verified in your response.\n"
               }
             },
             "watcher": {
@@ -58,21 +58,14 @@ jobs:
               ]
             },
             "mcp": {
-              "playwright": {
-                "type": "local",
-                "command": [
-                  "npx",
-                  "@playwright/mcp@latest"
-                ],
-                "enabled": true
-              },
               "chrome-devtools": {
                 "type": "local",
                 "command": [
                   "npx",
                   "-y",
                   "chrome-devtools-mcp@latest"
-                ]
+                ],
+                "enabled": true
               }
             },
             "lsp": false,
@@ -86,5 +79,7 @@ jobs:
 
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_ENABLE_EXA: "true"
         with:
           model: openai/gpt-5.3-codex
