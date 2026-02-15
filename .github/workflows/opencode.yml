@@ -71,7 +71,12 @@ jobs:
                 "command": [
                   "npx",
                   "-y",
-                  "chrome-devtools-mcp@latest"
+                  "chrome-devtools-mcp@latest",
+                  "--headless",
+                  "--isolated",
+                  "--chromeArg=--no-sandbox",
+                  "--chromeArg=--disable-dev-shm-usage",
+                  "--logFile=/tmp/chrome-devtools-mcp.log"
                 ],
                 "enabled": true
               }
