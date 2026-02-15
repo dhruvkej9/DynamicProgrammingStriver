@@ -9,11 +9,19 @@ on:
 jobs:
   opencode:
     if: |
-      contains(github.event.comment.body, '/oc') ||
-      contains(github.event.comment.body, '/opencode')
+      github.actor != 'opencode-agent[bot]' &&
+      (
+        contains(github.event.comment.body, ' /oc') ||
+        startsWith(github.event.comment.body, '/oc') ||
+        contains(github.event.comment.body, ' /opencode') ||
+        startsWith(github.event.comment.body, '/opencode')
+      )
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -28,20 +36,53 @@ jobs:
           echo "${{ secrets.OPENCODE_AUTH_JSON_B64 }}" | base64 -d > ~/.local/share/opencode/auth.json
           chmod 600 ~/.local/share/opencode/auth.json
 
-      - name: Configure OpenCode high variant
+      - name: Configure OpenCode variant
         shell: bash
         run: |
           mkdir -p ~/.config/opencode
-          cat > ~/.config/opencode/opencode.json <<'EOF'
+          cat > ~/.config/opencode/opencode.json <<'JSON'
           {
             "$schema": "https://opencode.ai/config.json",
             "agent": {
               "build": {
-                "variant": "high"
+                "model": "openai/gpt-5.3-codex",
+                "variant": "high",
+                "prompt": "Use ripgrep (rg) instead of grep/glob/find for searching. Commands: rg 'pattern' (search content), rg --files (list all files), rg --files -g '*.ext' (filter by extension), rg --files -g '*.{js,py,md}' (multiple extensions), rg 'pattern' -g '*.ext' (search in specific file types), rg -i 'pattern' (case insensitive), rg -C 3 'pattern' (show 3 lines context). ripgrep is faster and respects .gitignore by default. Use context7 for latest package info.\n\nUse MCP tools intentionally:\n- Use playwright MCP for reproducible end-to-end flows, issue reproduction, UI verification, screenshots, and basic console/network checks.\n- Use chrome-devtools MCP for deeper browser debugging: performance bottlenecks, network waterfall, runtime errors, DOM/CSS inspection, and rendering issues.\n- Prefer playwright for deterministic tests and chrome-devtools for deep diagnostics.\n- After implementing frontend or integration changes, validate with the relevant MCP and report what was verified.\n"
               }
+            },
+            "watcher": {
+              "ignore": [
+                "node_modules/**",
+                "dist/**",
+                ".git/**"
+              ]
+            },
+            "mcp": {
+              "playwright": {
+                "type": "local",
+                "command": [
+                  "npx",
+                  "@playwright/mcp@latest"
+                ],
+                "enabled": true
+              },
+              "chrome-devtools": {
+                "type": "local",
+                "command": [
+                  "npx",
+                  "-y",
+                  "chrome-devtools-mcp@latest"
+                ]
+              }
+            },
+            "lsp": false,
+            "permission": {
+              "external_directory": "allow",
+              "question": "allow",
+              "*": "allow"
             }
           }
-          EOF
+          JSON
 
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
