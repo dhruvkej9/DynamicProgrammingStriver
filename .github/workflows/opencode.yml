@@ -28,6 +28,21 @@ jobs:
           echo "${{ secrets.OPENCODE_AUTH_JSON_B64 }}" | base64 -d > ~/.local/share/opencode/auth.json
           chmod 600 ~/.local/share/opencode/auth.json
 
+      - name: Configure OpenCode high variant
+        shell: bash
+        run: |
+          mkdir -p ~/.config/opencode
+          cat > ~/.config/opencode/opencode.json <<'EOF'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "agent": {
+              "build": {
+                "variant": "high"
+              }
+            }
+          }
+          EOF
+
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
         with:
