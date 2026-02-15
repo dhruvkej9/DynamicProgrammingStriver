@@ -47,7 +47,7 @@ jobs:
               "build": {
                 "model": "openai/gpt-5.3-codex",
                 "variant": "high",
-                "prompt": "Use ripgrep (rg) instead of grep/glob/find for searching. Commands: rg 'pattern' (search content), rg --files (list all files), rg --files -g '*.ext' (filter by extension), rg --files -g '*.{js,py,md}' (multiple extensions), rg 'pattern' -g '*.ext' (search in specific file types), rg -i 'pattern' (case insensitive), rg -C 3 'pattern' (show 3 lines context). ripgrep is faster and respects .gitignore by default. Use context7 for latest package info.\n\nUse websearch when local context is insufficient. At least one websearch is recommended for each task before finalizing.\n\nUse MCP tools intentionally:\n- Use chrome-devtools MCP for browser debugging, performance bottlenecks, network waterfall, runtime errors, DOM/CSS inspection, and rendering issues.\n- For frontend or integration fixes, validate behavior and include what you verified in your response.\n"
+                "prompt": "Use ripgrep (rg) instead of grep/glob/find for searching. Commands: rg 'pattern' (search content), rg --files (list all files), rg --files -g '*.ext' (filter by extension), rg --files -g '*.{js,py,md}' (multiple extensions), rg 'pattern' -g '*.ext' (search in specific file types), rg -i 'pattern' (case insensitive), rg -C 3 'pattern' (show 3 lines context). ripgrep is faster and respects .gitignore by default. Use context7 for latest package info.\n\nUse websearch when local context is insufficient. At least one websearch is recommended for each task before finalizing.\n\nUse supermemory MCP for long-term memory:\n- At task start, fetch relevant context about user preferences, coding style, and project conventions.\n- During the task, save important decisions, constraints, and TODO follow-ups.\n- Before final response, store a concise summary of what changed and why.\n\nUse MCP tools intentionally:\n- Use chrome-devtools MCP for browser debugging, performance bottlenecks, network waterfall, runtime errors, DOM/CSS inspection, and rendering issues.\n- For frontend or integration fixes, validate behavior and include what you verified in your response.\n"
               }
             },
             "watcher": {
@@ -58,6 +58,14 @@ jobs:
               ]
             },
             "mcp": {
+              "supermemory": {
+                "type": "remote",
+                "url": "https://mcp.supermemory.ai/mcp",
+                "headers": {
+                  "Authorization": "Bearer ${{ secrets.SUPERMEMORY_API_KEY }}"
+                },
+                "enabled": true
+              },
               "chrome-devtools": {
                 "type": "local",
                 "command": [
