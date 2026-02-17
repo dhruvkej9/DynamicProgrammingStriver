@@ -115,14 +115,34 @@ jobs:
                     "limit": { "context": 262000, "output": 32768 },
                     "modalities": { "input": ["text", "image"], "output": ["text"] }
                   },
+                  "big-pickle": {
+                    "name": "Big-Pickle",
+                    "limit": { "context": 200000, "output": 64000 },
+                    "modalities": { "input": ["text", "image"], "output": ["text"] }
+                  },
+                  "minimax-m2.5-free": {
+                    "name": "MiniMax M2.5 Free",
+                    "limit": { "context": 204800, "output": 128000 },
+                    "modalities": { "input": ["text", "image"], "output": ["text"] }
+                  },
                   "glm-5-free": {
                     "name": "GLM-5 Free",
                     "limit": { "context": 200000, "output": 128000 },
                     "modalities": { "input": ["text", "image"], "output": ["text"] }
                   },
+                  "trinity-large-preview-free": {
+                    "name": "Trinity Large Preview Free",
+                    "limit": { "context": 128000, "output": 128000 },
+                    "modalities": { "input": ["text", "image"], "output": ["text"] }
+                  },
                   "gpt-5.3-codex": {
                     "name": "GPT-5.3 Codex (Fallback)",
                     "limit": { "context": 272000, "output": 128000 },
+                    "modalities": { "input": ["text", "image"], "output": ["text"] }
+                  },
+                  "gpt-5-nano": {
+                    "name": "GPT-5 Nano",
+                    "limit": { "context": 400000, "output": 128000 },
                     "modalities": { "input": ["text", "image"], "output": ["text"] }
                   }
                 }
